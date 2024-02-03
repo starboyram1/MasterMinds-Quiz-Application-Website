@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-337.min.css">
+    <link rel="stylesheet" href="font-awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Quiz</title>
+</head>
+<body style="background-color: #ffffff;">
+<nav class="navbar navbar-fixed-top" style="font-weight:bold;box-shadow: 0px 0px 5px black;background-color: white">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Master Minds</a>
+        </div>
+    </div>
+</nav>
+
+
+<div id="quiz_area">
+    <div class="header">
+        <div id="timer">180</div>
+        <div id="qstn_div">Question <span id="qstnno"></span></div> 
+    </div>
+    <div style="padding:1px 0px;"></div>
+    <div class="col-lg-12 content">
+        <span id="qstn"></span> ?<br> 
+        <div class="row" style="margin-left:5%;">
+            <span class="col-md-5 op"><input type="radio" name="option" value="1"> <span id="op1"></span></span>
+            <div class="col-md-1"></div>
+            <span class="col-md-5 op"><input type="radio" name="option" value="2"> <span id="op2"></span></span>
+        </div>
+        <div class="row" style="margin-left:5%;">
+            <span class="col-md-5 op"><input type="radio" name="option" value="3"> <span id="op3"></span></span>
+            <div class="col-md-1"></div>
+            <span class="col-md-5 op"><input type="radio" name="option" value="4"> <span id="op4"></span></span>
+        </div>
+        
+    </div>
+    <a onclick="change_question()" style="cursor: pointer;">
+    <div class="panel-footer footer">
+        <span class="pull-right quiz_next">Next <i class="fa fa-arrow-circle-right"></i>&emsp;</span>
+        <div class="clearfix"></div>
+    </div>
+    </a> 
+</div>
+
+<div id="result">
+    <p id="msg"></p>
+    <p id="score"></p>
+    <div class="panel-footer footer">
+        <a onclick="show_answer()" class="result_button_answers">
+            <span>Answers <i class="fa fa-arrow-circle-right"></i>&emsp;</span>
+        </a>
+        <a href="home.html" class="result_button_home">
+            <span>&nbsp;<i class="fa fa-arrow-circle-left"></i>&nbsp;Home</span>
+        </a>
+    </div>
+    
+</div>       
+
+
+<script>
+var score=0,qno=1;
+var counter=180,timer_flag=0;
+var question=[],option1=[],option2=[],option3=[],option4=[],answer=[],y_answer=[""];
+
+const urlParams = new URLSearchParams(window.location.search);
+const topic = urlParams.get('topic');
+
+if(topic==1)
+{
+    question=["","The ‘Gavaskar-Border Trophy’ is related to …","Mother theresa received nobel peace Prize in the year ...","The world smallest country is ...","Which one is not a harvest festival in India ...","Pedology is the science related to the study of ...","National stock exchange is located in ...","What country is also known as Persia ...","Water in plants is transported by ...","The Concept of written constitution, first born was ...","Which is the largest producer and exporter of Rubber in the world ..."];
+    option1=["","Hockey","1979","Canada","Onam","Atmosphere","New Delhi","Iran","Xylem","UK","India"];
+    option2=["","Volleyball","1980","Russia","Lohri","Soil","Mumbai","Iraq","Epidermis","USA","Thailand"];
+    option3=["","Cricket","1982","Maldives","Ugadi","Pollutants","Kolkata","Istambul","Phloem","France","Sri Lanka"];
+    option4=["","Basketball","1985","Vatican City","Holi","Seeds","Bangalore","Mozambique","Cambium","Italy","China"];
+    answer=["",3,1,4,4,2,2,1,1,2,2];
+}
+else if(topic==2)
+{
+    question=["","How can you achieve runtime polymorphism in Java ...","A Java program must have at least one ...","What is the output of the following Java Code<br><span style='font-size:80%;'>int a=9;<br>float b = a/2;<br>System.out.println(b); ...</span>","What is the maximum number of ELSE-IF statements that can present in between starting IF and ending ELSE statements ...?","What is the output of the below Java program:<br><span style='font-size:80%;'>int[] marks = {35,65,95}; <br>System.out.print(marks.length + \",\" + marks[1]); ...</span>","What is the output of the below Java program with arrays?<br><span style='font-size:80%;'>String[] colors = {\"red\";\"yellow\";\"white\"};<br>System.out.print(colors[2]); ...</span>","The name of an array variable or identifier can start with ...","Which is the file extension used for a compiled Java class file ...","Java uses ____ type of memory to implement Recursion ...","Which is the common problem with Recursive methods in Java ..."];
+    option1=["","Method overloading","Class definition","4.0","32","2,65","red","A letter",".j","Heap","StackOverflowError"];
+    option2=["","Method overrunning","Variable","4.5","64","3,95","yellow","Underscore( _ )",".java","Stack","IndexOutOfBound"];
+    option3=["","Method overriding","Comment","5.0","128","3,65","white","Dollar Symbol ($)",".class","Register","OutOfMemoryError"];
+    option4=["","Method calling","System.out.println();","None of the above","None","Compiler error","Compiler error","All",".cls","None","None"];
+    answer=["",3,1,1,4,3,4,4,3,2,1];
+}
+else if(topic==3)
+{
+    question=["","What is the output of below program?<br><span style='font-size:80%;'>int main()<br>{<br>int a = 10;<br>cout&gt;&gt;a++;<br>return 0;<br>} ...</span>","Which operator has highest precedence in * / % ...","How to access and edit data in data file handling using structures ...","How many times \"Cpp\" is printed<br><span style='font-size:80%;'>int main()<br>{<br>int i=0;<br>lbl:<br>cout<<\"Cpp\";<br>i++;<br>if(i<5)<br>{<br>goto lbl;<br>}<br>return 0;<br>} ...</span>","Which operator can not be overloaded ...","What is dangling pointer ...","Which part of memory is used for the allocation of local variables declared inside any function ...","What should be printed on screen<br><span style='font-size:80%;'>int main() <br>{<br>int x = 5;<br>if(x++ == 5)<br>cout<<\"Five\"&gt;&gt;endl;<br>else<br>if(++x == 6)<br>cout<<\"Six\"&gt;&gt;endl;<br>return 0;<br>} ...</span>","Which Exception is thrown when new fails to allocate memory ...","Which of the following user-defined header file extension used in c++ ..."];
+    option1=["","10","*","read()","Error","+","A pointer pointing to NULL","Heap","FiveSix","std::exception",".c"];
+    option2=["","11","/","write()","5 times","-","Pointer pointing to memory location which has been freed ","Stack","Five","std::bad_alloc",".c++"];
+    option3=["","12"," %","Both A and B","4 times ","*","Pointer which is pointing to new location Address","Space","Six","std::runtime_error",".cpp"];
+    option4=["","Not defined","All have same precedence","Without read()","6 times","::","None of these","Depends on Compiler","None of these","std::out_of_range",".cp"];
+    answer=["",1,4,3,2,4,2,2,2,2,3];
+}
+else if(topic==4)
+{
+    question=["","What do we use to define a block of code in Python language ...","Which of the following is not a core data type in Python programming ...","Which character is used in Python to make a single line comment ...","Which of the following statements is correct for variable names in Python language ...","What will be the output of the following code snippet?<br><span style='font-size:80%;'>print(2*3 + (5 + 6)*(1 + 1))</span> ...","What will be the output of the following code snippet?<br><span style='font-size:80%;'>s = {1, 2, 3, 3, 2, 4, 5, 5}<br>print(s)</span> ...","As what datatype are the *args stored, when passed into a function ..."," Which of the following modules need to be imported to handle date time computations in Python ...","The hasattr(obj,name) is used to ...","Is this code valid in Python?<br><span style='font-size:80%;'>>>> m=6,7,8,9<br>>>> m ...</span>",];
+    option1=["","Indentation","Lists","#","The variable name length is a maximum of 2","129","{1, 2, 3, 3, 2, 4, 5, 5}","List","datetime","Check if any specific attribute exists","No, many values will unpack"];
+    option2=["","Key","Class","//","Unlimited length","8","{1, 2, 3, 4, 5}","Tuple","date","Set an attribute","Yes, (6,7,8,9) will be printed"];
+    option3=["","Brackets","Tuples","/","All variable names must begin with an underscore","121","None","Dictionary","time","Access the object’s attribute","Yes, 6 will be printed"];
+    option4=["","None","Dictionary","!","None","None of the above.","{1, 5}","One of the above","timedate","Delete an attribute","Yes, [6,7,8,9] will be printed"];
+    answer=["",1,2,1,2,1,2,2,1,1,2];
+}
+else if(topic==5)
+{
+    question=["","From following which is not the operation of data structure ...","In the stack, If user try to remove element from the empty stack then it called as ...","In linked list implementation of a queue, from where is the item deleted ...","If the numbers 5, 10, 3, 42 are enqueued onto a queue in that order, what does dequeue return ...","A _____ tree is a tree where for each parent node, there is only one associated child node ...","The following numbers are inserted into an empty binary search tree in the given order: 10, 1, 3, 5, 15, 12, 16. What is the height of the binary search tree (the height is the maximum distance of a leaf node from the root) ...","The postorder traversal of a binary tree is 8,9,6,7,4,5,2,3,1. The inorder traversal of the same tree is 8,6,9,4,7,2,5,1,3. The height of a tree is the length of the longest path from the root to any leaf. Then the height of the binary tree is ...","______ of an algorithm is the amount of time (or the number of steps) needed by a program to complete its task ...","_____ function allocates memory dynamically to a data structure during execution ...","Evaluate the postfix expression: 6 2 3 + - 3 8 2 / + * 2 ^ 4 + ..."];
+    option1=["","Operations that manipulate data in some way","Overflow of Stack","At the head of link list","5","Balanced binary tree","2","5","Space Complexity","calloc()","52"];
+    option2=["","Operations that perform a computation","Empty Collection","At the centre of link list","10","Rooted complete binary tree","3","4","Dynamic programming","malloc()","26"];
+    option3=["","Operations that check for syntax errors","Underflow of Stack","at the tail of the link list","3","Complete binary tree","4","10","Time complexity","dalloc()","25"];
+    option4=["","Operations that monitor an object for the occurrence of a controlling event","Garbage Collection","One of the mentioned","42","Degenerate tree","5","1","Divide and conquer","allocate()","53"];
+    answer=["",1,3,1,1,4,2,2,3,2,1];
+}
+else
+{
+    question=["","The sum of first 49 natural numbers is ...","How many four-digit perfect squares 'abcd' are possible such that 'dcba' is also a four-digit perfect square and is also a factor of 'abcd' (given a ? d) ...","The average marks of a student in ten papers are 80. If the highest and the lowest scores are not considered, the average is 81. If his highest score is 92, find the lowest.","Three numbers are in the ratio 3:4:5. The sum of their squares is Rs 1250. What is the sum of numbers ...","If the height of the triangle decreases by 40% and the breadth increases by 40%. Then the effect on the area is ...","For instance, if 20 workers are working on 8 hours to finish a particular work process in 21 days, then how many hours are going to take for 48 workers to finish the same task in 7 days ...","Suppose cos4θ – sin4θ = 1/3, then what is the value of tan2θ ...","A daughter’s age was exactly half the age of her mother ten years back and the current age is exactly 60% of her mother’s age. What is their current age ...","Consider that a towel which is in square shape of side 4mm is reduced to 5% of its side. What is the percentage change in the area of the towel ...","A motorcyclist covered (2/3)rd of a total journey at his usual speed. He covered the remaining distance at (3/4)th of his usual speed. As a result, he arrived 30 minutes later than the time he would have taken at usual speed. If the total journey was 180 km. What was his usual speed ..."];
+    option1=["","2450","0","55","40","16% increase","12","1/2","20 & 40","5%","30 km/hr"];
+    option2=["","1225","1","60","50","26% decrease","20","1/3","25 & 50","2.5%","20 km/hr"];
+    option3=["","1500","2","62","60","26% increase","10","1/4","30 & 50","9.75%","50 km/hr"];
+    option4=["","None","Greater than 2","Cannot be determined.","90","16% decrease","15","1/5","35 & 55","No change","40 km/hr"];
+    answer=["",2,2,2,3,4,3,1,3,3,4];
+}
+
+
+setInterval(function() 
+{
+    counter--;
+    if (counter>=0)
+    { 
+        if(counter<=20)
+            $("#timer").css({"color":"red","border-color":"red"})
+        document.getElementById('timer').innerHTML = counter;
+    }
+    if (counter === 0) 
+    {
+        timer_flag=1;
+        content_display();
+    }   
+}, 1000);
+
+function change_question()
+{
+    var radios=document.getElementsByName('option');
+    var option,flag=0;
+            
+    for(i=0;i<radios.length;i++)
+    {
+        if(radios[i].checked)
+        {
+            flag=1;
+            y_answer.push(radios[i].value);
+            option=parseInt(radios[i].value);
+            radios[i].checked=false;
+            if(answer[qno]==option)
+            {
+                score++;
+            }
+            content_display();
+            next_question();
+        }
+    }
+    flag==0?alert("Please choose a option"):flag=0;
+}
+    
+function content_display()
+{
+    if(qno>9 || timer_flag==1)
+    {
+        document.getElementById("quiz_area").style.display="none";
+        document.getElementById("result").style.display="block";
+        var str="You are final score is "+score;
+        document.getElementById("score").innerHTML=str;
+        if(score>=(question.length)/2-1)
+        {
+            document.getElementById("msg").innerHTML="Well Done! You have passed the quiz..";
+            document.getElementById("msg").style.color="green";
+        }
+        else
+        {
+            document.getElementById("msg").innerHTML="Bad luck! You have failed..";
+            document.getElementById("msg").style.color="red";
+        }
+    }
+    else
+    {
+        qno++;     
+    }
+}
+    
+function next_question()
+{
+    document.getElementById("qstnno").innerHTML=qno;
+    document.getElementById("qstn").innerHTML=question[qno];
+    document.getElementById("op1").innerHTML=option1[qno];
+    document.getElementById("op2").innerHTML=option2[qno];
+    document.getElementById("op3").innerHTML=option3[qno];
+    document.getElementById("op4").innerHTML=option4[qno];
+}
+next_question();
+
+function show_answer()
+{
+    var temp,val,ans;
+    document.write("<div style='margin:2% 13%;background-color: #ffffff;box-shadow: 0 0 5px #3d3d3d;border-radius: 10px;color:#4c788f;font-size:100%;padding:20px 0px 20px 5%;'>");
+    document.write("<p style='font-weight:bold;font-size:20px;text-align:center'>Resultsheet</p>")
+    for(let i=1;i<y_answer.length;i++)
+    {
+        document.write(i+". ");
+        document.write(question[i]+"<br>");
+        document.write("&emsp;a) "+option1[i]+"<br>");
+        document.write("&emsp;b) "+option2[i]+"<br>");
+        document.write("&emsp;c) "+option3[i]+"<br>");
+        document.write("&emsp;d) "+option4[i]+"<br>");
+        temp="option"+y_answer[i].toString();
+        if(temp=="option1")
+            val=option1[i];
+        else if(temp=="option2")
+            val=option2[i];
+        else if(temp=="option3")
+            val=option3[i];
+        else
+            val=option4[i];
+
+        if(answer[i]==1)
+            ans=option1[i];
+        else if(answer[i]==2)
+            ans=option2[i];
+        else if(answer[i]==3)
+            ans=option3[i];
+        else
+            ans=option4[i];
+        
+        if(y_answer[i]==answer[i])
+        {
+            document.write("Your answer&emsp;: <span style='color:green;'>"+val+"</span><br>");
+        }
+        else
+        {
+            document.write("Your answer&emsp;: <span style='color:red;'>"+val+"</span><br>");
+        }
+        document.write("Correct answer: <b>"+ans+"</b><br><br>");
+    }
+    document.write("<center><a href='home.html' style='border-radius:5px;font-weight:bold;text-decoration:none;color:white;padding:10px;background-color:#5594cb;'>Home</a></center>");
+    document.write("</div>");
+}
+</script>
+</body>
+</html>

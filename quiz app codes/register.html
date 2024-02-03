@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="css/bootstrap-337.min.css">
+    <link rel="stylesheet" href="font-awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user_style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        $(document).ready(function(){ 
+            
+            $('#name').keyup(function(){
+                if(!$('#name').val().match(/^[A-Za-z]{2,}$/))
+                    $('#err_name').text("Name can contain only alphabets with atleast 2 character");
+                else
+                    $('#err_name').text("");
+            });
+
+            $('#email').keyup(function(){
+                if(!$('#email').val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+                    $('#err_email').text("Please enter valid email id");
+                else
+                    $('#err_email').text("");
+            });
+
+            $('#pass').keyup(function(){
+                if(!$('#pass').val().match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/))
+                    $('#err_pass').text("Atleast 8 character with combination of uppercase letter,lowercase letter,number and special character");
+                else
+                    $('#err_pass').text("");
+            }); 
+
+            $('#cpass').keyup(function(){
+                if($('#cpass').val()!=$('#pass').val())
+                    $('#err_cpass').text("Confirm password should match above password");
+                else
+                    $('#err_cpass').text("");
+            });
+
+            $('#contact').keyup(function(){
+                if(!$('#contact').val().match(/^\d{10,10}$/))
+                    $('#err_contact').text("Contact number can contain only 10 digits");
+                else
+                    $('#err_contact').text("");
+            });
+
+        });
+
+        function register_submit()
+        {
+            var name=document.getElementById('err_name').innerHTML;
+            var email=document.getElementById('err_email').innerHTML;
+            var pass=document.getElementById('err_pass').innerHTML;
+            var cpass=document.getElementById('err_cpass').innerHTML;
+            var contact=document.getElementById('err_contact').innerHTML;
+
+            if(name=="" && email=="" && pass=="" && cpass=="" && contact=="")
+            {
+                return true;
+            }
+            else 
+            {
+                alert("Please Enter valid details");
+                return false;
+            }
+        }
+
+</script>
+</head>
+<body>
+    <div class="box login_box">
+            <center><h2>Create new account</h2></center>
+            <form method="get" id="registerform" action="index.html" onsubmit="return register_submit()" autocomplete="off">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                    <span id="err_name"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="email" required>
+                    <span id="err_email"></span>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="pass"required >
+                    <span id="err_pass"></span>
+                </div>
+                <div class="form-group">
+                    <label> Confirm Password</label>
+                    <input type="password" class="form-control" id="cpass" required>
+                    <span id="err_cpass"></span>
+                </div>
+                <div class="form-group">
+                    <label>Contact</label>
+                    <input type="text" class="form-control" id="contact" required>
+                    <span id="err_contact"></span>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-user"></i>&nbsp;Register
+                    </button>  
+                </div>
+            </form>
+    </div>
+</body>
+</html>

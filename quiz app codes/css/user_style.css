@@ -1,0 +1,269 @@
+*{
+    font-family:'Trebuchet MS','Gill Sans','Gill Sans MT','Calibri', 'sans-serif';
+}
+body{
+    background-color: #FAFAFA;
+}
+@media only screen and (max-width: 450px) {
+    #menu_responsive{
+        margin:15px 0px 0px 0px;;
+        font-size:15px;
+    }
+    #menu_responsive1{
+        margin:10px 0px 0px 0px;;
+        font-size:15px;
+    }
+    #content_start{
+        margin-top:100px;
+      }
+      .menu1{
+        display:none;
+      }
+}
+.menu{
+    color:#4c788f;
+    float:right;
+    font-size:17px;
+    margin:13px 10px 0px 0px;
+    cursor:pointer;
+}
+.menu:hover{
+    color:#3b98db;
+}
+.menu1
+{
+    margin-top: 15px;
+}
+
+.link{
+    color:#4c788f;
+}
+.link:hover{
+    text-decoration: none;
+    color:#3b98db;
+}
+
+.home_active{
+    margin-top:8px;
+    border-radius:5px;
+    background-color: #3b98db;
+    color:#ffffff;
+    padding: 5px 3px 5px 5px;
+}
+.home_active:hover{
+    color:#ffffff;
+    border-radius:6px;
+}
+
+.welcome_message
+{
+    font-size: 40px;
+    font-weight:bold;
+    color:#959393;
+}
+
+#content_start{
+    margin-top:100px;
+}
+
+footer{
+    margin-top:40px;
+    width:100%;
+    text-align: center;
+    padding:20px 0px 20px 0px;
+}
+
+
+
+
+/*   quiz.html  */
+#quiz_area{
+    margin:10% 20%;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px #3d3d3d;
+    border-radius: 10px;
+    overflow: hidden;
+    color:#4c788f;
+    font-size: 20px;
+}
+.header{
+    font-size: 25px;
+    font-weight: bold;
+}
+#quiz_area #qstn_div,.content,.footer{
+    background-color:#f2ecec;
+    padding:15px 10px;
+}
+#qstn{
+    margin-bottom:20px;
+}
+#timer{
+    text-align: center;
+    width:7%;
+    font-size: 20px;
+    float:right;
+    padding:6px 1px 6px 1px;
+    border:2px solid #4c788f;
+    border-radius: 50%;
+    margin:10px 25px ;
+}
+
+.op{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.op:hover{
+    background-color: #4c788f;
+    color:#ffffff;
+}
+.footer{
+    background-color: #ffffff;
+    font-size: 20px;
+    padding-top: 30px;
+    font-weight: bold; 
+    color:#4c788f;
+    cursor: pointer;
+}
+input[type="radio"]{
+    cursor: pointer;
+
+}
+input[type='radio']:checked:after{
+    color: #01090f;
+}
+.quiz_next{
+    padding-top:10px;
+}
+
+@media only screen and (max-width: 1100px) {
+    #quiz_area{
+      margin-top:20%;
+      font-size: 14px;
+    }
+    .op{
+        font-size: 12px;
+    }
+    .footer{
+        padding-top:0px;
+    }
+    input[type=radio] {
+        border: 1px;
+        height: 8px;
+    }
+    .header{
+        font-size: 15px;
+        padding:0px;
+    }
+    #result{
+        font-size: 15px;
+    }
+    #timer{
+        margin-right: 10px;
+        width:auto;
+        font-size: 15px; 
+        padding:3px;   
+    }
+
+  }
+
+#result{
+    display: none;
+    margin:10% 20%;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px #3d3d3d;
+    border-radius: 10px;
+    overflow: hidden;
+    color:#4c788f;
+    font-size: 22px;
+    padding:15px 15px;
+}
+
+.result_button_answers{
+    float:right;
+}
+.result_button_answers:hover,.result_button_home:hover{
+    text-decoration: none;
+}
+
+
+@media only screen and (max-width: 700px) {
+    #result{
+      margin-top:20%;
+      font-size: 15px;
+    }
+    .quiz_next{
+        font-size: 15px;
+    }
+    .op{
+        margin-left:0px;
+        padding-left: 0px;
+    }
+    .footer{
+        font-size:15px;
+        padding-left:0px;
+        padding-right:0px;
+    }
+  }
+
+/* about.html */
+
+.poster{
+    background-image: url("image/quiz_poster.png");
+    height:100vh;
+    background-size:cover;
+    background-position: center;
+}
+.about{
+    color:#4c788f;
+    padding-top: 5%; 
+    font-size:20px;
+    cursor: pointer;
+}
+.about_home{
+    text-decoration: none;
+    color:#ffffff;
+    background-color:#4c788f;
+    padding:10px 17px;
+    border-radius: 25px;
+}
+.about_home:hover{
+   
+    text-decoration: none;
+    color:#ffffff;
+    border-radius: 20px;
+}
+.about_topic li{
+    margin-top:10px;
+}
+
+@media only screen and (max-width: 700px) {
+    .about{
+      margin-top:10%;
+      font-size:15px;
+    }
+    .poster{
+        margin-top:5%;
+    }
+  }
+
+/* login.html */
+.login_box{
+    padding:5% 20%;
+}
+.register:hover{
+   text-decoration: none; 
+}
+#err_pass,#err_email,#err_name,#err_cpass,#err_contact{
+    color:red;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 700px) {
+    .login_box{
+        margin-top:5%;
+    }
+  }

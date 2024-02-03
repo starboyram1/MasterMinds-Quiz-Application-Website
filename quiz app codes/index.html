@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="css/bootstrap-337.min.css">
+    <link rel="stylesheet" href="font-awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user_style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            $('#email').keyup(function(){
+                if(!$('#email').val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+                    $('#err_email').text("Please enter valid email id");
+                else
+                    $('#err_email').text("");
+            });
+
+            $('#pass').keyup(function(){
+                if(!$('#pass').val().match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/))
+                    $('#err_pass').text("Atleast 8 character with combination of uppercase letter,lowercase letter,number and special character");
+                else
+                    $('#err_pass').text("");
+            }); 
+
+        });
+
+        function login_submit()
+        {
+            var e=document.getElementById('err_email').innerHTML;
+            var p=document.getElementById('err_pass').innerHTML;
+            if(e=="" && p=="")
+            {
+                return true;
+            }
+            else 
+            {
+                alert("Please Enter valid details");
+                return false;
+            }
+        }
+
+</script>
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top" style="font-weight:bold;box-shadow: 0px 0px 5px black;background-color: white">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Master Minds</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="box login_box">
+        <center>
+            <h1>Login</h1>
+            <p class="lead"> Already have account..?</p>
+        </center>
+        <form method="get" id="loginform" autocomplete="off" action="home.html" onsubmit="return login_submit()">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" class="form-control" required>
+                <span id="err_email"></span>
+            </div>
+             <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="pass" class="form-control" required>
+                <span id="err_pass"></span>
+            </div>
+            <div class="text-center">
+                <button value="Login" name="login" class="btn btn-primary"> 
+                    <i class="fa fa-sign-in"></i>&nbsp;Login
+                </button>
+            </div>          
+        </form>
+        <center>
+            <span class="lead">Don't have account..?</span>
+           <a href="register.html" class="register">
+               <h4>Register here </h4>
+           </a> 
+        </center>
+    </div> 
+</body>
+</html>
